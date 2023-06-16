@@ -1,0 +1,7 @@
+{
+  "name": "AstronomyFactOfTheDayMobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
