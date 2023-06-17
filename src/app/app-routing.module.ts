@@ -11,8 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-];
-
+  {
+    path: 'detail/:date',
+    loadChildren: () => import('./detail/detail.module').then( m => m.DetailPageModule)
+  }]
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

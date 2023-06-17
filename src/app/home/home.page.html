@@ -1,20 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+      <ion-title size="large">Daily Astronomy</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="false">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <div class="fact" *ngFor="let fact of facts" [routerLink]="['/detail/'+fact.date]">
+      <ion-card routerLink="/detail">
+        <img src="{{ fact.url }}" alt="{{ fact.title }}">
+        <ion-card-header>
+          <ion-card-title>{{ fact.title }}</ion-card-title>
+          <ion-card-subtitle>{{ fact.date | date:'d MMMM yyyy' }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          {{ fact.explanation | cropSentencePipe }}
+        </ion-card-content>
+      </ion-card>
+    </div>
 </ion-content>
