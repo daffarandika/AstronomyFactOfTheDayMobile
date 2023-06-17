@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>search</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-button id="date">Pick a date</ion-button>
+  <ion-popover trigger="date">
+    <ng-template>
+      <ion-datetime [(ngModel)]="date" presentation="date" #datetime (ionChange)="datetime.cancel(true); dateChanged()">
+      </ion-datetime>
+    </ng-template>
+  </ion-popover>
+</ion-content>

@@ -21,6 +21,14 @@ export class HomePage {
     this.getFacts()
   }
 
+  handleRefresh(event: any) {
+    this.astronomyService.getFacts()
+    .subscribe(t => { 
+      this.facts = t;
+      event.target.complete()
+     })
+  }
+
   async getFacts() {
     const loading = await this.loadingController.create({
       message: "Please Wait",

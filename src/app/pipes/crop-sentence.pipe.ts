@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CropSentencePipe implements PipeTransform {
 
   transform(value: string): string {
-    return `${value.split(' ').splice(0,50).join(' ')} ...`;
+    return `${value.split(' ').splice(0,10).join(' ')} ...`;
   }
 
 }
