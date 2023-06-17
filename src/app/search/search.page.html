@@ -1,12 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>search</ion-title>
+    <ion-title>Daily Astronomy</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-button id="date">Pick a date</ion-button>
-  <ion-popover trigger="date">
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <h6 class="ion-padding">See fact by date</h6>
+      <ion-button id="date">
+        <ion-icon name="calendar-number-outline"></ion-icon>
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+  <ion-popover trigger="date" class="ion-align-items-center ion-justify-content-center">
     <ng-template>
       <ion-datetime [(ngModel)]="date" presentation="date" #datetime (ionChange)="datetime.cancel(true); dateChanged()">
       </ion-datetime>

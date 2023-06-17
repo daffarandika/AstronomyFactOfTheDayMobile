@@ -2,14 +2,14 @@
   <ion-toolbar>
   <ion-buttons slot="start">
     <ion-back-button></ion-back-button>
-    <ion-title>Detail</ion-title>
+    <ion-title>Daily Astronomy</ion-title>
   </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <h3>{{fact?.title}}</h3>
   <ion-img src="{{fact?.url}}"></ion-img>
-  <p>{{ fact?.date | date:'d MMMM yyyy' }}</p>
+  <h6 class="ion-text-center">{{ fact?.date | date:'d MMMM yyyy' }}</h6>
   <p>{{ fact?.explanation }}</p>
 </ion-content>
