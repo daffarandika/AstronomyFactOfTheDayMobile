@@ -16,14 +16,18 @@
     </ion-refresher-content>
   </ion-refresher>
   
-  <ion-title>Today's fact</ion-title>
-  <div class="fact" *ngIf="todaysFact as fact" [routerLink]="['/detail/'+fact.date]">
-    <app-fact-card [fact]="fact" redirectTo="/tabs/home/detail/{{ fact.date }}"></app-fact-card>
-  </div>
 
-  <ion-title>Some of our favorite facts</ion-title>
-  <div class="fact" *ngFor="let fact of randomFacts" [routerLink]="['/detail/'+fact.date]">
-    <app-fact-card [fact]="fact" redirectTo="/tabs/home/detail/{{ fact.date }}"></app-fact-card>
+  <app-no-internet *ngIf="messageService.message" message="{{messageService.message}}"></app-no-internet>
+
+  <div *ngIf="!messageService.message">
+    <ion-title>Today's fact</ion-title>
+    <div class="fact" *ngIf="todaysFact as fact" [routerLink]="['/detail/'+fact.date]">
+      <app-fact-card [fact]="fact" redirectTo="/tabs/home/detail/{{ fact.date }}"></app-fact-card>
+    </div>
+    <ion-title>Some of our favorite facts</ion-title>
+    <div class="fact" *ngFor="let fact of randomFacts" [routerLink]="['/detail/'+fact.date]">
+      <app-fact-card [fact]="fact" redirectTo="/tabs/home/detail/{{ fact.date }}"></app-fact-card>
+    </div>
   </div>
 
 </ion-content>

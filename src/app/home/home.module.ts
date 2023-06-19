@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { ApplicationPipeModule } from '../pipes/application-pipe-modules.module';
 import { FactCardModule } from '../fact-card/fact-card.module';
+import { NoInternetModule } from '../no-internet/no-internet.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FactCardModule } from '../fact-card/fact-card.module';
     IonicModule,
     HomePageRoutingModule,
     ApplicationPipeModule,
-    FactCardModule
+    FactCardModule,
+    NoInternetModule
   ],
   declarations: [
     HomePage, 

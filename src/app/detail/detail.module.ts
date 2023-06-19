@@ -7,14 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { DetailPageRoutingModule } from './detail-routing.module';
 
 import { DetailPage } from './detail.page';
+import { NoInternetModule } from '../no-internet/no-internet.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailPageRoutingModule
+    DetailPageRoutingModule,
+    NoInternetModule,
   ],
-  declarations: [DetailPage]
+  declarations: [DetailPage],
+  exports:[
+    NoInternetModule
+  ]
 })
 export class DetailPageModule {}

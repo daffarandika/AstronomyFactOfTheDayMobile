@@ -3,6 +3,7 @@ import { AstronomyService } from '../services/astronomy.service';
 import { ActivatedRoute } from '@angular/router';
 import { Fact } from 'src/data/fact';
 import { LoadingController } from '@ionic/angular';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-detail',
@@ -15,6 +16,7 @@ export class DetailPage implements OnInit {
 
   constructor(
     private astronomyService: AstronomyService,
+    public messageService: MessageService,
     private route: ActivatedRoute,
     private loadingController: LoadingController
   ) { }
@@ -29,11 +31,16 @@ export class DetailPage implements OnInit {
       translucent: true,
     })
     await loading.present()
-    this.astronomyService.getFactByDate(this.route.snapshot.paramMap.get('date')!).subscribe( f => { 
-        this.fact = f
-        loading.dismiss() 
-      }
-    )
+    this.astronomyService.getFactByDate(this.route.snapshot.paramMap.get('date')!)
+      .subscribe({
+        next: (fact) => {
+          this.fact = fact
+          loading.dismiss()
+        },
+        error: (err) => {
+          this.messageService.set(err.message)
+          loading.dismiss()
+        },
+      })
   }
-
 }

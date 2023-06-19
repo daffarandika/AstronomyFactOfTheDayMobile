@@ -8,8 +8,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <h3>{{fact?.title}}</h3>
-  <ion-img src="{{fact?.url}}"></ion-img>
-  <h6 class="ion-text-center">{{ fact?.date | date:'d MMMM yyyy' }}</h6>
-  <p>{{ fact?.explanation }}</p>
+  <app-no-internet *ngIf="messageService.message.length" message="{{ messageService.message }}"></app-no-internet>
+  <div *ngIf="!messageService.message.length">
+    <h3>{{fact?.title}}</h3>
+    <ion-img src="{{fact?.url}}"></ion-img>
+    <h6 class="ion-text-center">{{ fact?.date | date:'d MMMM yyyy' }}</h6>
+    <p>{{ fact?.explanation }}</p>
+  </div>
 </ion-content>

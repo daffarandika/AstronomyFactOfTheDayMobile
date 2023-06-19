@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AstronomyService } from '../services/astronomy.service';
 import { Fact } from 'src/data/fact';
 import { LoadingController } from '@ionic/angular';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ export class HomePage {
 
   constructor(
     private astronomyService: AstronomyService,
+    public messageService: MessageService,
     private loadingController: LoadingController
   ) { }
 
@@ -38,18 +40,32 @@ export class HomePage {
   
   getTodaysFact(loading: HTMLIonLoadingElement) {
     this.astronomyService.getTodaysFact()
-      .subscribe(fact => {
-        this.todaysFact = fact;
-        loading.dismiss()
-      })
+      .subscribe({
+          error: (err) => {
+            this.messageService.set(err.message);
+            loading.dismiss()
+          },
+          next: (todaysFact) => {
+            this.messageService.clear();
+            this.todaysFact = todaysFact;
+            loading.dismiss()
+          }, 
+        });
   }
 
   getRandomFacts(loading: HTMLIonLoadingElement) {
     this.astronomyService.getRandomFacts()
-      .subscribe(facts => { 
-        this.randomFacts = facts;
-        loading.dismiss()
-      })
+    .subscribe({
+        error: (err) => {
+          this.messageService.set(err.message);
+          loading.dismiss()
+        },
+        next: (randomFacts) => {
+          this.messageService.clear();
+          this.randomFacts = randomFacts;
+          loading.dismiss()
+        }, 
+    });
   }
 
 }
