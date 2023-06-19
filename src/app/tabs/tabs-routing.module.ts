@@ -33,10 +33,6 @@ const routes: Routes = [
             path: '',
             loadChildren: () => import('../search/search.module').then( m => m.SearchPageModule),
           },
-          {
-            path: 'detail/:date',
-            loadChildren: () => import('../detail/detail.module').then( m => m.DetailPageModule)
-          },
         ]
       },
     ]

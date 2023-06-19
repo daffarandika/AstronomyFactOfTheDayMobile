@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { AstronomyService } from '../services/astronomy.service';
+import { Fact } from 'src/data/fact';
+import { LoadingController } from '@ionic/angular';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-search',
@@ -8,17 +11,54 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SearchPage implements OnInit {
 
-  @Input() date: Date = new Date();
+  dateModel: string = new Date().toISOString();
+  fact?: Fact;
+  today: string = new Date().toISOString().substring(0,10);
+  showCalendar: boolean = false;
 
   constructor(
-    private router: Router
+    private astronomyService: AstronomyService,
+    public messageService: MessageService,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
   }
 
-  dateChanged(){
-    this.router.navigateByUrl(`/tabs/search/detail/${this.date.toString().substring(0, 10)}`)
+  dateChanged(loading: HTMLIonLoadingElement){
+    loading.present()
+    this.astronomyService.getFactByDate(this.dateModel.substring(0,10))
+    .subscribe({
+      next: (f) => { 
+        this.fact = f;
+        this.messageService.clear();
+        loading.dismiss();
+      },
+      error: (err) => {
+        this.messageService.set(err.message);
+        loading.dismiss();
+      }
+    });
+  }
+   
+  openCalendar() {
+    this.showCalendar = true;
+  }
+  async cancelCalendar() {
+    const loading = await this.loadingController.create({
+      message: "Please Wait",
+      translucent: true,
+    })
+    this.showCalendar = false;
+    this.dateChanged(loading)
+  }
+
+  done(){
+    alert(`/tabs/search/detail/${this.dateModel}`)
+  }
+
+  cancel() {
+
   }
 
 }

@@ -6,17 +6,36 @@
 
 <ion-content [fullscreen]="true">
   <ion-grid>
-    <ion-row class="ion-align-items-center ion-justify-content-center">
+    <ion-row class="ion-align-items-center ion-justify-content-between">
       <h6 class="ion-padding">See fact by date</h6>
-      <ion-button id="date">
-        <ion-icon name="calendar-number-outline"></ion-icon>
-      </ion-button>
+        <ion-button fill="clear" (click)="openCalendar()">
+          <ion-icon slot="icon-only" name="calendar-outline" color="primary" size="small"></ion-icon>
+        </ion-button>
+      <ion-datetime-button datetime="datetime" id="fake-click"></ion-datetime-button>
     </ion-row>
   </ion-grid>
-  <ion-popover trigger="date" class="ion-align-items-center ion-justify-content-center">
+  <ion-modal [keepContentsMounted]="false" [isOpen]="showCalendar" (didDismiss)="cancelCalendar()">
     <ng-template>
-      <ion-datetime [(ngModel)]="date" presentation="date" #datetime (ionChange)="datetime.cancel(true); dateChanged()">
-      </ion-datetime>
+      <ion-datetime
+        id="datetime"
+        [(ngModel)]="dateModel"
+        min="1995-06-16"
+        max="{{today}}"
+        presentation="date"
+        [showDefaultButtons]="true"
+        doneText="Confirm"
+        cancelText="Cancel"
+      ></ion-datetime>
     </ng-template>
-  </ion-popover>
+  </ion-modal>
+  <app-no-internet *ngIf="messageService.message" message="{{messageService.message}}"></app-no-internet>
+  <div *ngIf="!messageService.message">
+    <div class="ion-padding">
+      <h3>{{fact?.title}}</h3>
+      <img src="{{fact?.url}}">
+      <h6 class="ion-text-center">{{ fact?.date | date:'d MMMM yyyy' }}</h6>
+      <p>{{ fact?.explanation }}</p>
+    </div>
+  </div>
+
 </ion-content>
