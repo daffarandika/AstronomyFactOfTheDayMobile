@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { CropSentencePipe } from '../pipes/crop-sentence.pipe';
+import { ApplicationPipeModule } from '../pipes/application-pipe-modules.module';
+import { FactCardModule } from '../fact-card/fact-card.module';
 
 
 @NgModule({
@@ -14,7 +15,11 @@ import { CropSentencePipe } from '../pipes/crop-sentence.pipe';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
+    ApplicationPipeModule,
+    FactCardModule
   ],
-  declarations: [HomePage, CropSentencePipe],
+  declarations: [
+    HomePage, 
+  ], 
 })
 export class HomePageModule {}
