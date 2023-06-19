@@ -13,12 +13,16 @@ export class AstronomyService {
 
   baseUrl = 'http://localhost:5000/v1/apod'
 
-  getFacts(): Observable<Fact[]> {
+  getRandomFacts(): Observable<Fact[]> {
     return this.http.get<Fact[]>(`${this.baseUrl}/?count=2`)
   }
 
   getFactByDate(date: string): Observable<Fact> {
     return this.http.get<Fact>(`${this.baseUrl}?date=${date}`)
+  }
+
+  getTodaysFact(): Observable<Fact> {
+    return this.http.get<Fact>(this.baseUrl)
   }
 
 }

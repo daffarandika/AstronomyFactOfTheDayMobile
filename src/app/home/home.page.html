@@ -15,8 +15,23 @@
     >
     </ion-refresher-content>
   </ion-refresher>
+  
+  <ion-title>Today's fact</ion-title>
+  <div class="fact" *ngIf="todaysFact as fact" [routerLink]="['/detail/'+fact.date]">
+    <ion-card [routerLink]="['/tabs/home/detail/'+fact.date]">
+      <ion-img src="{{ fact.url }}" alt="{{ fact.title }}"></ion-img>
+      <ion-card-header>
+        <ion-card-title>{{ fact.title }}</ion-card-title>
+        <ion-card-subtitle>{{ fact.date | date:'d MMMM yyyy' }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{ fact.explanation | cropSentencePipe }}
+      </ion-card-content>
+    </ion-card>
+  </div>
 
-  <div class="fact" *ngFor="let fact of facts" [routerLink]="['/detail/'+fact.date]">
+  <ion-title>Some of our favorite facts</ion-title>
+  <div class="fact" *ngFor="let fact of randomFacts" [routerLink]="['/detail/'+fact.date]">
     <ion-card [routerLink]="['/tabs/home/detail/'+fact.date]">
       <ion-img src="{{ fact.url }}" alt="{{ fact.title }}"></ion-img>
       <ion-card-header>

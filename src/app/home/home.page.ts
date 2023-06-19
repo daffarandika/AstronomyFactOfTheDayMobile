@@ -10,36 +10,46 @@ import { LoadingController } from '@ionic/angular';
 })
 export class HomePage {
 
-  facts: Fact[] = []
+  randomFacts: Fact[] = []
+  todaysFact?: Fact
 
   constructor(
     private astronomyService: AstronomyService,
     private loadingController: LoadingController
   ) { }
 
-  ngOnInit(){
-    this.getFacts()
-  }
-
-  handleRefresh(event: any) {
-    this.astronomyService.getFacts()
-    .subscribe(t => { 
-      this.facts = t;
-      event.target.complete()
-     })
-  }
-
-  async getFacts() {
+  async ngOnInit(){
     const loading = await this.loadingController.create({
       message: "Please Wait",
       translucent: true,
     })
     await loading.present()
-    this.astronomyService.getFacts()
-    .subscribe(t => { 
-      this.facts = t;
-      loading.dismiss()
-     })
+    this.getTodaysFact(loading)
+    this.getRandomFacts(loading)
+  }
+
+  handleRefresh(event: any) {
+    this.astronomyService.getRandomFacts()
+      .subscribe(t => { 
+        this.randomFacts = t;
+        event.target.complete();
+      })
+  }
+  
+  getTodaysFact(loading: HTMLIonLoadingElement) {
+    this.astronomyService.getTodaysFact()
+      .subscribe(fact => {
+        this.todaysFact = fact;
+        loading.dismiss()
+      })
+  }
+
+  getRandomFacts(loading: HTMLIonLoadingElement) {
+    this.astronomyService.getRandomFacts()
+      .subscribe(facts => { 
+        this.randomFacts = facts;
+        loading.dismiss()
+      })
   }
 
 }
