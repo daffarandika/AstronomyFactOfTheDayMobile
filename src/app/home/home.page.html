@@ -20,13 +20,25 @@
   <app-no-internet *ngIf="messageService.message" message="{{messageService.message}}"></app-no-internet>
 
   <div *ngIf="!messageService.message">
-    <ion-title>Today's fact</ion-title>
-    <div class="fact" *ngIf="todaysFact as fact" [routerLink]="['/detail/'+fact.date]">
-      <app-fact-card [fact]="fact" redirectTo="/tabs/home/detail/{{ fact.date }}"></app-fact-card>
+    <div class="ion-padding">
+      <ion-title class="ion-text-center">Today's fact</ion-title>
+      <ion-card class="ion-padding" color="danger" *ngIf="todaysFact as fact" [routerLink]="['/detail/'+fact.date]">
+        <app-fact-card [fact]="fact" redirectTo="/tabs/home/detail/{{ fact.date }}"></app-fact-card>
+      </ion-card>
     </div>
-    <ion-title>Some of our favorite facts</ion-title>
-    <div class="fact" *ngFor="let fact of randomFacts" [routerLink]="['/detail/'+fact.date]">
-      <app-fact-card [fact]="fact" redirectTo="/tabs/home/detail/{{ fact.date }}"></app-fact-card>
+    <div class="ion-padding">
+      <ion-title>Some of our favorite facts</ion-title>
+      <ion-card color="tertiary">
+        <ion-grid>
+          <ion-row class="scroll">
+            <ion-col>
+              <div class="facts">
+                <app-fact-card *ngFor="let fact of randomFacts" [fact]="fact" redirectTo="/tabs/home/detail/{{ fact.date }}"></app-fact-card>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
     </div>
   </div>
 

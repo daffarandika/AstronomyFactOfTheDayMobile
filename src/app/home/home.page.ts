@@ -48,7 +48,6 @@ export class HomePage {
           next: (todaysFact) => {
             this.messageService.clear();
             this.todaysFact = todaysFact;
-            loading.dismiss()
           }, 
         });
   }

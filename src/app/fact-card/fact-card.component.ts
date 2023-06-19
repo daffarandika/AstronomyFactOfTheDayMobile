@@ -9,6 +9,7 @@ import { Fact } from 'src/data/fact';
 export class FactCardComponent  implements OnInit {
 
   @Input() fact?: Fact
+  @Input() color?: string
   @Input() redirectTo?: string
 
   constructor() { }
