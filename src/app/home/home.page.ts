@@ -32,7 +32,7 @@ export class HomePage {
 
   handleRefresh(event: any) {
     this.astronomyService.getRandomFacts()
-      .subscribe(t => { 
+      .then(t => { 
         this.randomFacts = t;
         event.target.complete();
       })
@@ -40,30 +40,19 @@ export class HomePage {
   
   getTodaysFact(loading: HTMLIonLoadingElement) {
     this.astronomyService.getTodaysFact()
-      .subscribe({
-          error: (err) => {
-            this.messageService.set(err.message);
-            loading.dismiss()
-          },
-          next: (todaysFact) => {
-            this.messageService.clear();
-            this.todaysFact = todaysFact;
-          }, 
-        });
+      .then((todaysFact) => {
+              this.messageService.clear();
+              this.todaysFact = todaysFact;
+              loading.dismiss()
+            });
   }
 
   getRandomFacts(loading: HTMLIonLoadingElement) {
     this.astronomyService.getRandomFacts()
-    .subscribe({
-        error: (err) => {
-          this.messageService.set(err.message);
-          loading.dismiss()
-        },
-        next: (randomFacts) => {
+    .then((randomFacts) => {
           this.messageService.clear();
           this.randomFacts = randomFacts;
           loading.dismiss()
-        }, 
     });
   }
 

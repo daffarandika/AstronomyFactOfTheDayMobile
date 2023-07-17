@@ -32,15 +32,9 @@ export class DetailPage implements OnInit {
     })
     await loading.present()
     this.astronomyService.getFactByDate(this.route.snapshot.paramMap.get('date')!)
-      .subscribe({
-        next: (fact) => {
+      .then((fact) => {
           this.fact = fact
           loading.dismiss()
-        },
-        error: (err) => {
-          this.messageService.set(err.message)
-          loading.dismiss()
-        },
-      })
+        })
   }
 }

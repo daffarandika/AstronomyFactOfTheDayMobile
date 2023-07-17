@@ -4,6 +4,7 @@ import { Observable, throwError, of } from 'rxjs';
 import { catchError, retry, } from 'rxjs/operators';
 import { Fact } from 'src/data/fact';
 import { environment } from 'src/environments/environment';
+import { CapacitorHttp, HttpOptions } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -22,22 +23,34 @@ export class AstronomyService {
     }
   }
 
-  getRandomFacts(): Observable<Fact[]> {
-    return this.http.get<Fact[]>(`${this.baseUrl}&count=2`).pipe(
-      catchError(this.handleError)
-    )
+  getRandomFacts() : Promise<Fact[]>{
+    const options = {
+      url: `${this.baseUrl}&count=2`,
+      method: 'GET',
+    } as HttpOptions;
+    return CapacitorHttp.get(options).then((val) => {
+      return val.data as Fact[]
+    });
   }
 
-  getFactByDate(date: string): Observable<Fact> {
-    return this.http.get<Fact>(`${this.baseUrl}&date=${date}`).pipe(
-      catchError(this.handleError)
-    )
+  getFactByDate(date: string): Promise<Fact> {
+    const options = {
+      url: `${this.baseUrl}&date=${date}`,
+      method: 'GET',
+    } as HttpOptions;
+    return CapacitorHttp.get(options).then((val) => {
+      return val.data as Fact
+    });
   }
 
-  getTodaysFact(): Observable<Fact> {
-    return this.http.get<Fact>(this.baseUrl).pipe(
-      catchError(this.handleError)
-    )
+  getTodaysFact(): Promise<Fact> {
+    const options = {
+      url: `${this.baseUrl}`,
+      method: 'GET',
+    } as HttpOptions;
+    return CapacitorHttp.get(options).then((val) => {
+      return val.data as Fact
+    });
   }
 
 }

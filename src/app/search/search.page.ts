@@ -28,17 +28,11 @@ export class SearchPage implements OnInit {
   dateChanged(loading: HTMLIonLoadingElement){
     loading.present()
     this.astronomyService.getFactByDate(this.dateModel.substring(0,10))
-    .subscribe({
-      next: (f) => { 
-        this.fact = f;
-        this.messageService.clear();
-        loading.dismiss();
-      },
-      error: (err) => {
-        this.messageService.set(err.message);
-        loading.dismiss();
-      }
-    });
+    .then((f) => { 
+          this.fact = f;
+          this.messageService.clear();
+          loading.dismiss();
+        });
   }
    
   openCalendar() {
